@@ -32,7 +32,7 @@ const Main = () => {
   const [useTTS, setUseTTS] = useState(false);
   const [useInternet, setUseInternet] = useState(false);
   const [usePhotos, setUsePhotos] = useState(false);
-  const [useRabbitMode, setuseRabbitMode] = useState(false);
+  const [useRabbitMode, setUseRabbitMode] = useState(false);
   const [useSpotify, setUseSpotify] = useState('');
   const [currentTranscription, setCurrentTranscription] = useState<{ transcription: string, responseTime: number } | null>(null);
   const [totalResponseTime, setTotalResponseTime] = useState<number | null>(null);
@@ -42,24 +42,25 @@ const Main = () => {
   const [showSettings, setShowSettings] = useState(false);
 
   const handleSettingsClick = () => {
-    setShowSettings(!showSettings);
+    setShowSettings((prevState) => !prevState);
   };
 
   const handleTTSToggle = () => {
-    setUseTTS(!useTTS);
+    setUseTTS((prevState) => !prevState);
   };
 
   const handleInternetToggle = () => {
-    setUseInternet(!useInternet);
+    setUseInternet((prevState) => !prevState);
   };
 
   const handleLudicrousModeToggle = () => {
-    setUseLudicrousMode(!useLudicrousMode);
+    setUseLudicrousMode((prevState) => !prevState);
   };
 
   const handleRabbitModeToggle = () => {
-    setuseRabbitMode(!useRabbitMode);
+    setUseRabbitMode((prevState) => !prevState);
   };
+
   const handleSubmit = async (formData: FormData) => {
     const startTime = Date.now();
     const streamableValue = await action(formData);
@@ -109,6 +110,7 @@ const Main = () => {
     }
     setTotalResponseTime(totalResponseTime);
   };
+
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth <= 768; // Adjust the breakpoint as needed
@@ -120,6 +122,7 @@ const Main = () => {
       window.removeEventListener('resize', checkMobile); // Cleanup the event listener
     };
   }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {isMobile ? (
@@ -147,8 +150,8 @@ const Main = () => {
             useRabbitMode={useRabbitMode}
           />
           {currentTranscription && (
-            <div className={`absolute  ${useRabbitMode ? 'transform -translate-x-1/2 left-1/2 bottom-[100px]' : 'left-[30px] bottom-0 top-3/4'} text-center min-w-[300px] max-w-[300px]`}>
-              <p className="text-md text-gray-500">{currentTranscription.transcription} </p>
+            <div className={`absolute ${useRabbitMode ? 'transform -translate-x-1/2 left-1/2 bottom-[100px]' : 'left-[30px] bottom-0 top-3/4'} text-center min-w-[300px] max-w-[300px]`}>
+              <p className="text-md text-gray-500">{currentTranscription.transcription}</p>
               {config.enableResponseTimes && (
                 <p className="text-xs text-gray-500">Transcription response time: +{currentTranscription.responseTime.toFixed(2)} seconds</p>
               )}
@@ -165,14 +168,14 @@ const Main = () => {
                   />
                 ) : (
                   <img
-                    className={`animate-slide-in-right w-full min-w-[700px]`}
+                    className="animate-slide-in-right w-full min-w-[700px]"
                     src="https://developersdigest.s3.amazonaws.com/hand-1.png"
                     alt="Hand"
                   />
                 )}
                 {useSpotify && (
                   <div className={`absolute left-0 bottom-0 flex items-center justify-end transform ${useRabbitMode ? 'left-[24px] top-[-240px]' : 'top-0 -translate-x-[300px] right-10'} z-10`}>
-                    <SpotifyTrack trackId={useSpotify} width={useRabbitMode ? 260 : 300} height={useRabbitMode ? 80 : 80} />
+                    <SpotifyTrack trackId={useSpotify} width={useRabbitMode ? 260 : 300} height={80} />
                   </div>
                 )}
                 {message && message.message && !currentUIComponent && (
@@ -187,60 +190,7 @@ const Main = () => {
                   </div>
                 )}
                 {currentUIComponent && currentUIComponent.component === 'weather' && (
-                  <div className={`weather-data absolute ${useRabbitMode ? '-top-[68px] right-[79px] scale-[0.92]' : 'top-0 left-0 right-0 justify-end'} bottom-0 flex items-center `}>
+                  <div className={`weather-data absolute ${useRabbitMode ? '-top-[68px] right-[79px] scale-[0.92]' : 'top-0 left-0 right-0 justify-end'} bottom-0 flex items-center`}>
                     <WeatherData data={currentUIComponent.data} />
                   </div>
-                )}
-                {currentUIComponent && currentUIComponent.component === 'time' && (
-                  <div className={`z-10 absolute ${useRabbitMode ? 'left-[55px] top-[92px]' : 'right-[125px] top-[30px]'} bottom-0 flex items-center justify-end`}>
-                    <ClockComponent />
-                  </div>
-                )}
-                {message && message.message && (
-                  <div className={`absolute ${useRabbitMode ? 'top-[calc(100%+20px)]' : 'top-[450px] right-[50px]'} bottom-0 flex items-center justify-end`}>
-                    {config.enableResponseTimes && (
-                      <p className="text-xs text-gray-500">Message response time: +{message.responseTime.toFixed(2)} seconds</p>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      {config.enableSettingsUIToggle && (
-        <div
-          className="absolute bottom-7 left-7 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center cursor-pointer"
-          onClick={handleSettingsClick}
-        >
-          <img
-            src={showSettings ? "https://upload.wikimedia.org/wikipedia/commons/a/a0/OOjs_UI_icon_close.svg" : "https://upload.wikimedia.org/wikipedia/commons/2/20/Factotum_gear_icon.svg"}
-            alt={showSettings ? "Close Settings" : "Settings"}
-            className="w-6 h-6"
-          />
-        </div>
-      )}
-      {showSettings && (
-        <Settings
-          useLudicrousMode={useLudicrousMode}
-          useTTS={useTTS}
-          useInternet={useInternet}
-          usePhotos={usePhotos}
-          useRabbitMode={useRabbitMode}
-          onLudicrousModeToggle={handleLudicrousModeToggle}
-          onTTSToggle={handleTTSToggle}
-          onInternetToggle={handleInternetToggle}
-          onPhotosToggle={() => setUsePhotos(!usePhotos)}
-          onRabbitModeToggle={handleRabbitModeToggle}
-          setTTS={setUseTTS}
-          setInternet={setUseInternet}
-          setPhotos={setUsePhotos}
-        />
-      )}
-      {config.useAttributionComponent && (
-        <AttributionComponent usePhotos={usePhotos} useInternet={useInternet} useTTS={useTTS} useRateLimiting={config.useRateLimiting} />
-      )}
-    </div>
-  );
-};
-export default Main;
+               
