@@ -4,8 +4,8 @@ export const config = {
     inferenceModel: 'gpt-4o', // Groq: 'llama3-70b-8192' or 'llama3-8b-8192'.. OpenAI: 'gpt-4-turbo etc
 
     // Whisper settings
-    whisperModelProvider: 'groq', // 'groq' or 'openai'
-    whisperModel: 'whisper-large-v3', // Groq: 'whisper-large-v3' OpenAI: 'whisper-1'
+    whisperModelProvider: 'openai', // 'groq' or 'openai'
+    whisperModel: 'whisper-1', // Groq: 'whisper-large-v3' OpenAI: 'whisper-1'
 
     // TTS settings
     ttsModelProvider: 'openai', // only openai supported for now...
