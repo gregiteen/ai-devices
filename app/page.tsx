@@ -97,4 +97,16 @@ const Settings: React.FC<SettingsProps> = ({
   );
 };
 
-export default Settings;
+const Page = () => {
+  return <Settings
+    useTTS={false}
+    useInternet={false}
+    usePhotos={false}
+    useLudicrousMode={false}
+    useRabbitMode={false}
+    onToggle={() => {}}
+    setSetting={() => {}}
+  />;
+};
+
+export default Page;
