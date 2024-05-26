@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import * as THREE from 'three';
+
+// Extend THREE namespace
+extend({ BoxBufferGeometry: THREE.BoxGeometry });
+
 import { config } from './config';
 
 interface SettingsProps {
@@ -97,7 +102,7 @@ const Settings: React.FC<SettingsProps> = ({
   );
 };
 
-const Page = () => {
+const Page: React.FC = () => {
   return <Settings
     useTTS={false}
     useInternet={false}
