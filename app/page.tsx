@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { config } from './config'; // Use named import
+import { config } from './config';
 
 interface SettingsProps {
   useTTS: boolean;
@@ -29,7 +29,7 @@ const ToggleSwitch: React.FC<{ id: string; label: string; checked: boolean; onCh
         <div className={`block w-12 h-8 rounded-full ${checked ? 'bg-green-500' : 'bg-gray-300'}`}></div>
         <div className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${checked ? 'transform translate-x-full' : ''}`}></div>
       </div>
-      <div className="ml-3 text-lg text-black">{label}</div> {/* Set text color to black */}
+      <div className="ml-3 text-lg text-black">{label}</div>
     </label>
   </div>
 );
@@ -49,7 +49,7 @@ const InteractiveToggle: React.FC<{ checked: boolean; onToggle: () => void }> = 
         <boxBufferGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color={checked ? 'green' : 'gray'} />
         <Html>
-          <div className="toggle-label text-black">{checked ? 'ON' : 'OFF'}</div> {/* Set text color to black */}
+          <div className="toggle-label text-black">{checked ? 'ON' : 'OFF'}</div>
         </Html>
       </mesh>
     </Canvas>
@@ -80,7 +80,7 @@ const Settings: React.FC<SettingsProps> = ({
       {config.enabledLudicrousMode && (
         <>
           <InteractiveToggle checked={useLudicrousMode} onToggle={handleLudicrousModeToggle} />
-          <div className="text-xs text-gray-700 mb-2">(Groq Llama3 + Groq Whisper only)</div> {/* Set text color to gray */}
+          <div className="text-xs text-gray-700 mb-2">(Groq Llama3 + Groq Whisper only)</div>
         </>
       )}
       {config.enableTextToSpeechUIToggle && (
