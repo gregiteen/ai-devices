@@ -1,3 +1,6 @@
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import { config } from './config';
 
 interface SettingsProps {
@@ -29,12 +32,8 @@ const ToggleSwitch: React.FC<{ id: string; label: string; checked: boolean; onCh
   </div>
 );
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import { Html } from '@react-three/drei';
-
-const InteractiveToggle = ({ checked, onToggle }: { checked: boolean, onToggle: () => void }) => {
-  const mesh = useRef<any>();
+const InteractiveToggle: React.FC<{ checked: boolean; onToggle: () => void }> = ({ checked, onToggle }) => {
+  const mesh = useRef<any>(null);
 
   useFrame(() => {
     if (mesh.current) {
