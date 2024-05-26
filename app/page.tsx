@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { config } from './config';
+import { config } from './config'; // Use named import
 
 interface SettingsProps {
   useTTS: boolean;
