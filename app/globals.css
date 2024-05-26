@@ -18,9 +18,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  overflow: hidden !important; /* Hide scrollbars */
 }
 
 @layer utilities {
@@ -29,9 +28,10 @@ body {
   }
 }
 
+/* Prevent image drag */
 .prevent-image-drag {
+  -webkit-user-drag: none; /* WebKit-based browsers */
   user-drag: none;
-  -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -43,7 +43,6 @@ body {
     transform: translateX(100%);
     opacity: 0;
   }
-
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -54,12 +53,10 @@ body {
   animation: slideInRight 2s ease-out;
 }
 
-
 @keyframes scaleUp {
   0% {
     transform: scale(0.01);
   }
-
   100% {
     transform: scale(20);
   }
@@ -69,9 +66,7 @@ body {
   animation: scaleUp 100s linear forwards;
 }
 
-
-
-/* clock */
+/* Clock */
 .react-clock {
   display: block;
   position: relative;
@@ -81,8 +76,6 @@ body {
 .react-clock *,
 .react-clock *:before,
 .react-clock *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -94,7 +87,7 @@ body {
   right: 0;
   border: 1px solid white;
   border-radius: 50%;
-  box-shaodw: 0 0 5px #000, 0 0 10px #000, 0 0 20px #000, 0 0 40px #000;
+  box-shadow: 0 0 5px #000, 0 0 10px #000, 0 0 20px #000, 0 0 40px #000;
 }
 
 .react-clock__hand {
@@ -137,12 +130,4 @@ body {
 .react-clock__second-hand__body {
   background-color: white;
   box-shadow: 0 0 5px #000, 0 0 10px #000, 0 0 20px #000, 0 0 40px #000;
-}
-
-
-/* clock */
-
-body {
-  overflow: hidden!important;
-  /* Hide scrollbars */
 }
