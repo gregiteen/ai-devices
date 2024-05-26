@@ -44,15 +44,13 @@ const InteractiveToggle: React.FC<{ checked: boolean; onToggle: () => void }> = 
   });
 
   return (
-    <Canvas>
-      <mesh ref={mesh} onClick={onToggle}>
-        <boxBufferGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={checked ? 'green' : 'gray'} />
-        <Html>
-          <div className="toggle-label text-black">{checked ? 'ON' : 'OFF'}</div>
-        </Html>
-      </mesh>
-    </Canvas>
+    <mesh ref={mesh} onClick={onToggle}>
+      <boxBufferGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={checked ? 'green' : 'gray'} />
+      <Html>
+        <div className="toggle-label text-black">{checked ? 'ON' : 'OFF'}</div>
+      </Html>
+    </mesh>
   );
 };
 
@@ -79,7 +77,9 @@ const Settings: React.FC<SettingsProps> = ({
     <div className="settings-container absolute bottom-24 left-7 bg-white rounded-md shadow-md p-4 animate-slide-up touch-friendly">
       {config.enabledLudicrousMode && (
         <>
-          <InteractiveToggle checked={useLudicrousMode} onToggle={handleLudicrousModeToggle} />
+          <Canvas>
+            <InteractiveToggle checked={useLudicrousMode} onToggle={handleLudicrousModeToggle} />
+          </Canvas>
           <div className="text-xs text-gray-700 mb-2">(Groq Llama3 + Groq Whisper only)</div>
         </>
       )}
